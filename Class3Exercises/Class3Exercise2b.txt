@@ -1,0 +1,27 @@
+import yaml
+from pprint import pprint
+
+cisco3 = {"device_name": "cisco3", "host": "cisco3.lasthop.io"}
+
+arista1 = {"device_name": "arista1", "host": "arista1.lasthop.io"}
+
+nxos1 = {"device_name": "nxos1", "host": "nxos1.lasthop.io"}
+
+nxos2 = {"device_name": "nxos", "host": "nxos.lasthop.io"}
+
+
+lab_devices = [cisco3, arista1, nxos1, nxos2]
+for device in lab_devices:
+    device["username"] = "testuser"
+    device["password"] = "testpassword"
+
+print()
+pprint(lab_devices)
+print()
+
+filename=lab_devices
+with open("filename.yml", "w") as f:
+    yaml.dump(lab_devices, f, default_flow_style=False)
+
+default_flow_style=False <<<< Will save the yaml file in expanded format
+default_flow_style=True <<<< Will save the yaml file in compressed format

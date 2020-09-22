@@ -1,0 +1,36 @@
+import json
+
+from pprint import pprint
+
+
+filename = input("Input filename: ")
+with open(filename) as f:
+        data = json.load(f)
+
+
+
+#print(data)
+print()
+ipv4_list = []
+
+ipv6_list = []
+
+for int_name, ip_det in data.items():
+        for ipv, ipdetail in ip_det.items():
+                for ip_addr, prefix in ipdetail.items():
+                        prefix_len = prefix["prefix_length"]
+                        if ipv == "ipv4":
+                                ipv4_list.append("{}/{}".format(ip_addr, prefix_len))
+                        elif ipv == "ipv6":
+                                ipv6_list.append("{}/{}".format(ip_addr, prefix_len))
+print()
+print()
+print("IPv4 Addresses: {}".format(ipv4_list))
+print()
+print()
+print("IPv6 Addresses: {}".format(ipv6_list))
+print()
+print()
+
+
+	

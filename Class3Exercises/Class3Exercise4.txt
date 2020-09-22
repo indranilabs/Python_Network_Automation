@@ -1,0 +1,34 @@
+
+import re
+
+import json
+
+from pprint import pprint
+
+
+filename = input("Input filename: ")
+with open(filename) as f:
+        data = json.load(f)
+
+print()
+print()
+#pprint(data)
+print()
+print()
+
+ipv4_neig = data["ipV4Neighbors"]
+
+ip_arp_dict = {}
+
+for neig in ipv4_neig:
+        for Key, value in neig.items():
+                ip_addr = neig["address"]
+                mac_addr = neig["hwAddress"]
+        ip_arp_dict[ip_addr] = mac_addr
+
+pprint(ip_arp_dict)
+print()
+print()
+print("New disctionary is: {}".format(ip_arp_dict))
+print()
+print()
