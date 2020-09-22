@@ -1,0 +1,56 @@
+import time
+import os
+from netmiko import ConnectHandler
+from getpass import getpass
+
+
+
+device1 = {
+    "host": "cisco4.lasthop.io",
+    "username": "pyclass",
+    "password": getpass(),
+    "secret": getpass(),
+    "device_type": "cisco_ios",
+    "session_log": "my_output.txt",
+}
+
+net_connect=ConnectHandler(**device1)
+
+#Week2Class2Exercise6a
+print("\nCurrent Prompt: ")
+
+print(net_connect.find_prompt())
+
+#Week2Class2Exercise6b
+print("\nConfig Mode: ")
+net_connect.config_mode()
+print(net_connect.find_prompt())
+
+#Week2Class2Exercise6c
+
+net_connect.exit_config_mode()
+print("\nCurrent Prompt: ")
+print(net_connect.find_prompt())
+
+#Week2Class2Exercise6d
+
+net_connect.write_channel("disable\n")
+
+#Week2Class2Exercise6e
+
+time.sleep(2)
+output = net_connect.read_channel()
+print(output)
+
+#Week2Class2Exercise6f
+
+net_connect.enable()
+print("\nCurrent Prompt: ")
+print(net_connect.find_prompt())
+
+net_connect.disconnect()
+print()
+
+
+
+

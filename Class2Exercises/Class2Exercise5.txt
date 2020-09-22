@@ -1,0 +1,30 @@
+
+from netmiko import ConnectHandler
+
+from getpass import getpass
+
+
+device1 =  {
+        "host": 'nxos1.lasthop.io' ,
+        "username": 'pyclass' ,
+        "password": getpass(),
+        "device_type": 'cisco_nx'
+
+}
+
+device2 =  {
+        "host": 'nxos2.lasthop.io' ,
+        "username": 'pyclass' ,
+        "password": getpass(),
+        "device_type": 'cisco_nx'
+
+}
+
+net_connect=ConnectHandler(**device1)
+print(net_connect.find_prompt())
+
+for NX in (device1,device2):
+	output = net_connect.send_config_from_file(config_file='createvlan.txt')
+	print(output)
+	save_out = net_connect.save_config()
+	print(save_out)
