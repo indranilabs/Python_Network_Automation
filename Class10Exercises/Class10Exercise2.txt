@@ -1,0 +1,21 @@
+from datetime import  datetime
+from mydevice import devices
+from my_function import ssh_command
+import threading
+
+def main():
+ start_time = datetime.now()
+ threads = []
+ for device in devices:
+  session =threading.Thread(target = ssh_command,args = (device,"show version"))
+  threads.append(session)
+  session.start()
+
+ for session in threads:
+  session.join()
+
+ end_time = datetime.now()
+ print(f"Finished in {end_time - start_time}")
+
+if __name__ == "__main__":
+    main()
