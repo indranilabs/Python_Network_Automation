@@ -1,0 +1,15 @@
+from jnpr.junos import Device
+from lxml import etree
+from getpass import getpass
+from jnpr_devices_u import srx2
+from  pprint import pprint
+
+device = Device(**srx2)
+device.open()
+
+
+xml_out = device.rpc.get_interface_information(terse = True)
+pprint(etree.tostring(xml_out,pretty_print=True, encoding="unicode"))
+
+device.close()
+

@@ -1,0 +1,12 @@
+from jnpr.junos import Device
+from jnpr.junos.op.routes import RouteTable
+from  getpass import getpass
+from Week8u_Execr2 import get_routes
+from jnpr_devices_u import srx2
+
+device = Device(**srx2)
+device.open()
+
+routes = get_routes(device)
+
+print(routes)

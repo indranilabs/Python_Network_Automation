@@ -1,0 +1,16 @@
+from jnpr.junos import Device
+from jnpr_devices_u import srx2
+from jnpr.junos.utils.config import Config
+
+if __name__ == "__main__":
+
+    device = Device(**srx2)
+    device.open()
+    device.timeout = 60
+    cfg = Config(device)
+    cfg.lock()
+    try:
+     cfg.lock()
+     print("Lock acquired!")
+    except :
+     print("Device is already locked.")

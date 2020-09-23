@@ -1,0 +1,32 @@
+from jnpr.junos import Device
+from jnpr.junos.op.routes import RouteTable
+from  getpass import getpass
+from Week8u_Execr2 import get_routes
+from jnpr_devices_u import srx2
+from jnpr.junos.utils.config import Config
+
+device = Device(**srx2)
+device.open()
+
+routes = get_routes(device)
+
+cfg = Config(device)
+cfg.lock()
+
+cfg.load(path = "route_u.conf",format = "text",merge = True)
+cfg.commit()
+cfg.unlock()
+
+
+
+updated_routes = get_routes(device)
+
+routes_keys = routes.keys()
+updated_routes_keys = updated_routes.keys()
+
+new_routes =[]
+for route in updated_routes_keys:
+        if route not in routes_keys:
+                new_routes.append(route)
+
+print(new_routes)

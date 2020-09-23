@@ -1,0 +1,48 @@
+from jnpr.junos import Device
+from jnpr.junos.op.routes import RouteTable
+from jnpr.junos.op.arp import ArpTable
+import sys
+from jnpr_devices_u import srx2
+from pprint import pprint
+
+def check_connected(device):
+ if device.connected:
+  print(f"Device {device.hostname} is connected")
+ else:
+  sys.ext(1)
+
+def get_routes(device):
+ routes = RouteTable(device)
+ routes.get()
+ return routes
+
+def get_arp_table(device):
+ arp = ArpTable(device)
+ arp.get()
+ return arp
+
+def print_output(connected,routes,arp):
+    print()
+    print("Print out desired output from device, route, and arp information")
+    print("-" * 20)
+    device = {}
+    device["hostname"] = connected.hostname
+   # device["connected_port"] = dev.port
+   # device["connected_user"] = dev.user
+   # device["route_table"] = routes.items()
+   # device["arp_table"] = arp.items()
+    pprint(device)
+    print()
+
+if __name__ == "__main__":
+
+    device = Device(**srx2)
+    device.open()
+    check_connected(device)
+    routes =  get_routes(device)
+    arp = get_arp_table(device)
+    print_output(device,routes,arp)
+
+
+#connect = Device(host="srx2.lasthop.io", user="pyclass", password=getpass())
+#pprint(connect.facts)
