@@ -1,0 +1,14 @@
+from  lxml import etree
+
+with open("show_security_zones.xml","r") as file:
+
+ my_xml =etree.parse(file)
+ print(my_xml)
+
+my_data = my_xml.find(".//zones-security")
+print(my_data)
+print(my_data.tag)
+children = my_data.getchildren()
+
+for child in children:
+ print(child.tag)

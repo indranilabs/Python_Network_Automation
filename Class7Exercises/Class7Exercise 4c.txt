@@ -1,0 +1,11 @@
+from  lxml import etree
+
+with open("show_security_zones.xml","r") as file:
+
+ my_xml =etree.parse(file)
+
+my_data = my_xml.findall("zones-security")
+print(my_data)
+
+for name in my_data:
+ print(name.find("zones-security-zonename").text)

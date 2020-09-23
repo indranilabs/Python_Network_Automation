@@ -1,0 +1,19 @@
+import xmltodict
+from pprint import pprint
+
+def readxml(filename):
+ with open(filename,"r") as file:
+  return xmltodict.parse(file.read())
+
+
+if __name__ == "__main__":
+
+ filename = input("Enter the filename: ")
+ my_xml_file1 = readxml(filename)
+
+
+ filename = input("Enter the filename: ")
+ my_xml_file2 = readxml(filename)
+
+ print(type(my_xml_file1['zones-information']['zones-security']))
+ print(type(my_xml_file2['zones-information']['zones-security']))

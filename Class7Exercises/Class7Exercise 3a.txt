@@ -1,0 +1,14 @@
+import xmltodict
+from pprint import pprint
+
+def readxml(filename):
+ with open(filename,"r") as file:
+  return xmltodict.parse(file.read())
+
+filename = input("Enter the filename: ")
+my_xml_file1 = readxml(filename)
+pprint(my_xml_file1)
+
+filename = input("Enter the filename: ")
+my_xml_file2 = readxml(filename)
+pprint(my_xml_file2)

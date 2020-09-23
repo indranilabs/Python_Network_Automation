@@ -1,0 +1,11 @@
+import xmltodict
+from pprint import pprint
+
+xml_file = open("show_security_zones.xml")
+xml_data = xml_file.read().strip()
+my_xml = xmltodict.parse(xml_data)
+a=1
+my_dict = my_xml['zones-information']['zones-security']
+for i  in  my_dict:
+ print(f"Security Zone #{a} {i['zones-security-zonename']}")
+ a =a+1
