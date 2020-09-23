@@ -1,0 +1,12 @@
+from jinja2 import FileSystemLoader, StrictUndefined
+from jinja2.environment import Environment
+
+env = Environment(undefined=StrictUndefined)
+env.loader = FileSystemLoader('./')
+var = {}
+
+temp_file = "Week5_Exer4.j2"
+template = env.get_template(temp_file)
+output = template.render(**var)
+print(output)
+

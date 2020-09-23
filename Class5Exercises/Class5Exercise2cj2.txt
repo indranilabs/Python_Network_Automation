@@ -1,0 +1,8 @@
+interface {{interface}}
+ description {{Text}}
+ ip address {{ip_add}} {{subnet_mask}}
+
+router bgp {{local_as}}
+  neighbor {{peer_ip}} remote-as {{local_as}}
+  neighbor {{peer_ip}} update-source {{interface}}
+    address-family ipv4 unicast

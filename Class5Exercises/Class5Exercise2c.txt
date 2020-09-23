@@ -1,0 +1,63 @@
+import time
+from netmiko import ConnectHandler
+from device_Week5_Exec2c import DEVICE1,DEVICE2
+from jinja2 import FileSystemLoader, StrictUndefined
+from jinja2.environment import Environment
+
+env = Environment(undefined=StrictUndefined)
+env.loader = FileSystemLoader('./jinja2/')
+
+Device1 = {
+"interface":"loopback 0",
+"Text":"Created_via_Script",
+"ip_add":"1.1.1.1",
+"subnet_mask":"255.255.255.0",
+"local_as":22,
+"peer_ip":"2.2.2.2",
+}
+Device2 = {
+"interface":"loopback0",
+"Text":"Created_via_Script",
+"ip_add":"2.2.2.2",
+"subnet_mask":"255.255.255.255",
+"local_as":22,
+"peer_ip":"1.1.1.1",
+}
+
+for var in (Device1,Device2):
+ temp_file = "Week5_Exec2c.j2"
+ template = env.get_template(temp_file)
+ output = template.render(**var)
+ cfg_lines = [output.strip() for output in output.splitlines()]
+ if var["ip_add"] == "1.1.1.1":
+  net_connect = ConnectHandler(**DEVICE1)
+  output=net_connect.send_config_set(cfg_lines)
+  print(output)
+  output1=net_connect.send_config_set("ip route 2.2.2.2 255.255.255.255 ethernet 0/0")
+  print(output1)
+ else:
+  net_connect = ConnectHandler(**DEVICE2)
+  output = net_connect.send_config_set(cfg_lines)
+  print(output)
+  output1 = net_connect.send_config_set("ip route 1.1.1.0 255.255.255.0 ethernet 0/0")
+  print(output1)
+
+sleep_time = 15
+print(f"sleeping for {sleep_time} second..")
+
+for test in (DEVICE1,DEVICE2):
+ Test_connect = ConnectHandler(**test)
+ if test['host']=='192.168.0.1':
+  output = Test_connect.send_command("ping 2.2.2.2")
+  bgp_session = Test_connect.send_command("sh ip bgp summary | include 2.2.2.2")
+
+  if "!" in output:
+     print(output)
+  else:
+    print("failed ping")
+ elif test['host']=='192.168.0.3':
+  output = Test_connect.send_command("ping 1.1.1.1")
+  if "!" in output:
+     print(output)
+  else:
+    print("failed ping")

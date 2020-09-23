@@ -1,0 +1,22 @@
+from jinja2 import FileSystemLoader, StrictUndefined
+from jinja2.environment import Environment
+
+env = Environment(undefined=StrictUndefined)
+env.loader = FileSystemLoader('./')
+
+nxos1 = {
+"interface":"Ethernet1/1",
+"ip_add":"10.10.100.1",
+"subnet_mask":24,
+}
+nxos2 = {
+"interface":"Ethernet1/1",
+"ip_add":"10.10.100.2",
+"subnet_mask":24,
+}
+
+for var in (nxos1,nxos2):
+ temp_file = "Week5_Exer2a.j2"
+ template = env.get_template(temp_file)
+ output = template.render(**var)
+ print(output)
