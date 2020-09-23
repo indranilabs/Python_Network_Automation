@@ -1,0 +1,13 @@
+from pprint import pprint
+from my_device import device
+from my_function_W9_E2 import connection
+
+if __name__ == "__main__":
+ connections = []
+ for my_device in device:
+  conn = connection(my_device)
+  connections.append(conn)
+  try:
+      pprint(conn.get_ntp_peers())
+  except NotImplementedError:
+            print("NTP Peers Getter not implemented for device type {}".format(conn.platform))

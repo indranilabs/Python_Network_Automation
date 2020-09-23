@@ -1,0 +1,18 @@
+from napalm import get_network_driver
+from pprint import pprint
+from my_device import cisco3
+from my_device import eos1
+
+def connection(my_device):
+ my_device=my_device.copy()
+ device_type =my_device.pop("device_type")
+ driver = get_network_driver(device_type)
+ connection = driver(**my_device)
+ connection.open()
+ return connection
+
+if __name__ == "__main__":
+ conn= connection(cisco3)
+ print(conn)
+ con_eos=connection(eos1)
+ print(con_eos)

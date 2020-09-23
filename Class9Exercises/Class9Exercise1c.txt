@@ -1,0 +1,20 @@
+from napalm import get_network_driver
+from pprint import pprint
+from my_device import device
+
+def connection(my_device):
+ my_device=my_device.copy()
+ device_type =my_device.pop("device_type")
+ driver = get_network_driver(device_type)
+ connection = driver(**my_device)
+ connection.open()
+ return connection
+
+if __name__ == "__main__":
+ connections = []
+ for my_device in device:
+  conn = connection(my_device)
+  connections.append(conn)
+  print(my_device)
+
+print(connections)

@@ -1,0 +1,28 @@
+from pprint import pprint
+from my_device import device
+from my_function_W9_E2 import connection
+
+if __name__ == "__main__":
+ connections = []
+ for my_device in device:
+  conn = connection(my_device)
+  connections.append(conn)
+
+print(connections)
+
+(py3_venv) [indranilabs@pylab21a Week9]$ cat Week9_Execr2b.py
+from pprint import pprint
+from my_device import device
+from my_function_W9_E2 import connection
+
+if __name__ == "__main__":
+ connections = []
+ for my_device in device:
+  conn = connection(my_device)
+  connections.append(conn)
+  arp_ouput = conn.get_arp_table()
+  print("#############################Arp_Table###############################")
+  pprint(arp_ouput)
+  print("*"*70)
+
+print(connections)

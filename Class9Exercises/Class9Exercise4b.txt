@@ -1,0 +1,6 @@
+from my_device import nxos1
+from my_function_W9_E2 import connection,create_checkpoint
+
+if __name__ == "__main__":
+ conn = connection(nxos1)
+ create_checkpoint(conn)

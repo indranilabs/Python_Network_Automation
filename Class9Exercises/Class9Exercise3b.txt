@@ -1,0 +1,19 @@
+from pprint import pprint
+from my_device import device
+from my_function_W9_E2 import connection
+
+if __name__ == "__main__":
+ connections = []
+ for my_device in device:
+  conn = connection(my_device)
+  connections.append(conn)
+
+for conn in connections:
+        print("\n\n")
+        print("-" * 20)
+        conn.load_merge_candidate(filename="{}-loopbacks.txt".format(conn.hostname))
+        print("Diff before commiting for device {}".format(conn.hostname))
+        diff = conn.compare_config()
+        print(">" * 8)
+        print(diff)
+        print(">" * 8)

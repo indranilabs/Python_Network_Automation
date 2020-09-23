@@ -1,0 +1,23 @@
+from my_device import nxos1
+from my_function_W9_E2 import connection,create_checkpoint
+
+NXOS_REPLACE_CANDIDATE = "replace_nxos_cfg"
+
+if __name__ == "__main__":
+ conn = connection(nxos1)
+ create_checkpoint(conn)
+
+ print("**"*50)
+ conn.load_replace_candidate(NXOS_REPLACE_CANDIDATE)
+ print("config_staged")
+ print("**"*50)
+ print("pending difference {}".format(conn.hostname))
+ print(conn.compare_config())
+ print("**"*50)
+ print("discarding changes {}".format(conn.hostname))
+ conn.discard_config()
+ print("changes disacarded,in next section we will see no pending changes")
+ print("**"*50)
+ print(conn.compare_config())
+ print("We can see above no pending changes")
+ conn.close()
