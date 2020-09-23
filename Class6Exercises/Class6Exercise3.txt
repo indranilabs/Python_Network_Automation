@@ -1,0 +1,13 @@
+import  pyeapi
+from my_function import device_yaml
+from pprint import pprint
+my_data =device_yaml()
+
+
+connection = pyeapi.client.connect(**my_data["arista4"])
+device = pyeapi.client.Node(connection)
+output = device.enable(["sh ip route"])
+my_route = output[0]["result"]["vrfs"]["default"]['routes']
+print(type(my_route))
+print(len(my_route))
+pprint(my_route)

@@ -1,0 +1,12 @@
+import pyeapi
+import yaml
+from getpass import getpass
+from my_function import device_yaml,output_print
+
+my_data = device_yaml()
+
+connection = pyeapi.client.connect(**my_data["arista4"])
+device = pyeapi.client.Node(connection)
+output = device.enable(["sh ip arp"])
+my_data = (output[0]["result"]["ipV4Neighbors"])
+output_print(my_data)
