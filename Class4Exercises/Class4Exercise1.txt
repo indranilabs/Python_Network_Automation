@@ -11,7 +11,7 @@ Start
 
 ShowInt
        ^${PORT_NAME}.*$$  ->Record
-
+       
 
 EOF
 # Or Implicit EOF and Record
