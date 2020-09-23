@@ -1,0 +1,23 @@
+from netmiko import ConnectHandler
+from datetime import datetime
+from mydevice import devices
+
+def show_ver(device,command):
+ connection = ConnectHandler(**device)
+ output = connection.send_command(command)
+ connection.disconnect()
+ return(output)
+
+def main():
+ start_time=datetime.now()
+ for device in devices:
+  output = show_ver(device,"show version")
+  print("**"*50)
+  print(output)
+  print("**"*50)
+ end_time=datetime.now()
+ elapsed_time =  end_time - start_time
+ print(f"finished in {elapsed_time}")
+
+if __name__ == "__main__":
+    main()
