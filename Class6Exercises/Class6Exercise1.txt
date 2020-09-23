@@ -1,0 +1,19 @@
+import pyeapi
+from getpass import getpass
+
+connection = pyeapi.client.connect(
+    transport="https",
+    host="arista3.lasthop.io",
+    username="pyclass",
+    password=getpass(),
+    port="443",
+)
+
+device = pyeapi.client.Node(connection)
+output = device.enable(["sh ip arp"])
+my_data = (output[0]["result"]["ipV4Neighbors"])
+
+for value in my_data:
+ ip_add = value["address"]
+ Mac_add = value["hwAddress"]
+ print("{}{}{}".format(ip_add, "-->", Mac_add))
