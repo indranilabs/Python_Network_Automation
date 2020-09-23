@@ -1,0 +1,7 @@
+from jnpr.junos import Device
+from getpass import getpass
+from pprint import pprint
+
+connect = Device(host="srx2.lasthop.io", user="pyclass", password=getpass())
+pprint(connect.facts)
+print(connect.facts["hostname"])
